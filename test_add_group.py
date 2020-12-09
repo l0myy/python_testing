@@ -23,7 +23,7 @@ class TestAddGroup(unittest.TestCase):
     def return_to_groups_page(self, wd):
         wd.find_element_by_link_text("group page").click()
 
-    def create_gorup(self, wd, group):
+    def create_group(self, wd, group):
         wd.find_element_by_name("new").click()
         wd.find_element_by_id("content").click()
         # fill group firm
@@ -39,7 +39,7 @@ class TestAddGroup(unittest.TestCase):
         # submit group creation
         wd.find_element_by_name("submit").click()
 
-    def open_gorups_page(self, wd):
+    def open_groups_page(self, wd):
         wd.find_element_by_link_text("groups").click()
 
     def login(self, wd, username, password):
@@ -55,8 +55,8 @@ class TestAddGroup(unittest.TestCase):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
-        self.open_gorups_page(wd)
-        self.create_gorup(wd, Group(name="aofeoifeq", header="pijfwpfe", footer="qpfqj[eofq"))
+        self.open_groups_page(wd)
+        self.create_group(wd, Group(name="aofeoifeq", header="pijfwpfe", footer="qpfqj[eofq"))
         self.return_to_groups_page(wd)
         self.logout(wd)
 
@@ -64,8 +64,8 @@ class TestAddGroup(unittest.TestCase):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
-        self.open_gorups_page(wd)
-        self.create_gorup(wd, Group(name="", header="", footer=""))
+        self.open_groups_page(wd)
+        self.create_group(wd, Group(name="", header="", footer=""))
         self.return_to_groups_page(wd)
         self.logout(wd)
 
