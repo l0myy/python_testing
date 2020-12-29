@@ -9,7 +9,6 @@ class ContactHelper:
     def open_add_new_contact(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
-        wd.find_element_by_name("theform").click()
 
     def create(self, contact):
         wd = self.app.wd
@@ -95,3 +94,16 @@ class ContactHelper:
         # submit contact creation
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
         self.app.navigation.open_home_page()
+
+    def edit(self, contact):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//img[@title='Edit']").click()
+        wd.find_element_by_name("firstname").click()
+        wd.find_element_by_name("firstname").clear()
+        wd.find_element_by_name("firstname").send_keys(contact.firstname)
+        wd.find_element_by_name("lastname").click()
+        wd.find_element_by_name("lastname").clear()
+        wd.find_element_by_name("lastname").send_keys(contact.firstname)
+        wd.find_element_by_name("update").click()
+        self.app.navigation.open_home_page()
+
