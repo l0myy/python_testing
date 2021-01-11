@@ -1,4 +1,3 @@
-from contacts import Contact
 from fixture.application import Application
 import pytest
 

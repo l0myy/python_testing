@@ -1,4 +1,4 @@
-from contacts import Contact
+from model.contacts import Contact
 
 
 def test_add_contact(app):

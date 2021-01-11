@@ -13,7 +13,32 @@ class ContactHelper:
     def create(self, contact):
         wd = self.app.wd
         self.open_add_new_contact()
-        # filling forms
+        self.filling_contact_forms(wd, contact)
+        # choosing group
+        wd.find_element_by_name("new_group").click()
+        Select(wd.find_element_by_name("new_group")).select_by_visible_text(contact.group_name)
+        # submit contact creation
+        wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
+        self.app.navigation.open_home_page()
+
+    def edit(self, contact):
+        wd = self.app.wd
+        # click on the edit button
+        wd.find_element_by_xpath("//img[@title='Edit']").click()
+        self.filling_contact_forms(wd, contact)
+        # submit contact edition
+        wd.find_element_by_xpath("(//input[@name='update'])[2]").click()
+        self.app.navigation.open_home_page()
+
+    def delete(self):
+        wd = self.app.wd
+        # selecting contact to delete
+        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to.alert.accept()
+        self.app.navigation.open_home_page()
+
+    def filling_contact_forms(self, wd, contact):
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.firstname)
@@ -23,7 +48,6 @@ class ContactHelper:
         wd.find_element_by_name("lastname").click()
         wd.find_element_by_name("lastname").clear()
         wd.find_element_by_name("lastname").send_keys(contact.lastname)
-        wd.find_element_by_name("theform").click()
         wd.find_element_by_name("nickname").click()
         wd.find_element_by_name("nickname").clear()
         wd.find_element_by_name("nickname").send_keys(contact.nickname)
@@ -36,7 +60,6 @@ class ContactHelper:
         wd.find_element_by_name("address").click()
         wd.find_element_by_name("address").clear()
         wd.find_element_by_name("address").send_keys(contact.address)
-        wd.find_element_by_name("theform").click()
         wd.find_element_by_name("home").click()
         wd.find_element_by_name("home").clear()
         wd.find_element_by_name("home").send_keys(contact.home)
@@ -79,9 +102,6 @@ class ContactHelper:
         wd.find_element_by_name("ayear").click()
         wd.find_element_by_name("ayear").clear()
         wd.find_element_by_name("ayear").send_keys(contact.ayear)
-        Select(wd.find_element_by_name("new_group")).select_by_visible_text(contact.group_name)
-        wd.find_element_by_name("new_group").click()
-        wd.find_element_by_name("theform").click()
         wd.find_element_by_name("address2").click()
         wd.find_element_by_name("address2").clear()
         wd.find_element_by_name("address2").send_keys(contact.address2)
@@ -91,25 +111,3 @@ class ContactHelper:
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(contact.notes)
-        # submit contact creation
-        wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
-        self.app.navigation.open_home_page()
-
-    def edit(self, contact):
-        wd = self.app.wd
-        wd.find_element_by_xpath("//img[@title='Edit']").click()
-        wd.find_element_by_name("firstname").click()
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(contact.firstname)
-        wd.find_element_by_name("lastname").click()
-        wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(contact.firstname)
-        wd.find_element_by_name("update").click()
-        self.app.navigation.open_home_page()
-
-    def delete(self):
-        wd = self.app.wd
-        wd.find_element_by_name("selected[]").click()
-        wd.find_element_by_xpath("//input[@value='Delete']").click()
-        wd.switch_to.alert.accept()
-        self.app.navigation.open_home_page()
