@@ -15,8 +15,9 @@ class ContactHelper:
         self.open_add_new_contact()
         self.filling_contact_forms(contact)
         # choosing group
-        wd.find_element_by_name("new_group").click()
-        Select(wd.find_element_by_name("new_group")).select_by_visible_text(contact.group_name)
+        if contact.group_name is not None:
+            wd.find_element_by_name("new_group").click()
+            Select(wd.find_element_by_name("new_group")).select_by_visible_text(contact.group_name)
         # submit contact creation
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
         self.app.navigation.open_home_page()
@@ -78,3 +79,7 @@ class ContactHelper:
             wd.find_element_by_name(field_name).click()
             Select(wd.find_element_by_name(field_name)).select_by_visible_text(text)
             wd.find_element_by_name(field_name).click()
+
+    def count(self):
+        wd = self.app.wd
+        return len(wd.find_elements_by_name("selected[]"))
