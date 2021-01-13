@@ -8,7 +8,7 @@ class ContactHelper:
 
     def open_add_new_contact(self):
         wd = self.app.wd
-        if wd.find_elements_by_name("group"):
+        if not (len(wd.find_elements_by_name("Select all")) > 0):
             wd.find_element_by_link_text("add new").click()
 
     def create(self, contact):
@@ -83,4 +83,5 @@ class ContactHelper:
 
     def count(self):
         wd = self.app.wd
+        self.app.navigation.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
