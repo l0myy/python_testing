@@ -4,15 +4,17 @@ from model.contacts import Contact
 def test_edit_contact_full(app):
     if app.contact.count() == 0:
         app.contact.create(Contact(firstname="test"))
-    app.contact.edit(Contact(firstname="new firstname", middlename="new middlename", lastname="new lastname", nickname="l0my",
-                             title="titles", company="bercut", address="saint-petersburg", home="sweet home",
-                             mobile="85945739", work="32302", fax="445566", email="wprwrew@mail.ru",
-                             email2="epwrojwe@gmail.com", email3="qwpejqwewq@ya.ru", homepage="my home page",
-                             bday="15", bmonth="January", byear="1884", aday="18", amonth="October", ayear="1994",
-                             group_name="assdfdsf", address2="greg", phone2="rwgw", notes="qwe"))
+    old_contacts = app.contact.get_contact_list()
+    app.contact.edit(Contact(firstname="new firstname", middlename="new middlename", lastname="new lastname",
+                             nickname="l0my"))
+    new_contacts = app.contact.get_contact_list()
+    assert len(old_contacts) == len(new_contacts)
 
 
 def test_edit_contact_firstname(app):
     if app.contact.count() == 0:
         app.contact.create(Contact(firstname="test"))
+    old_contacts = app.contact.get_contact_list()
     app.contact.edit(Contact(firstname="my firstname"))
+    new_contacts = app.contact.get_contact_list()
+    assert len(old_contacts) == len(new_contacts)

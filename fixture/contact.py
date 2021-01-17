@@ -1,4 +1,5 @@
 from selenium.webdriver.support.ui import Select
+from model.contacts import Contact
 
 
 class ContactHelper:
@@ -38,11 +39,12 @@ class ContactHelper:
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to.alert.accept()
+        wd.find_elements_by_css_selector("div.msgbox")
         self.app.navigation.open_home_page()
 
     def filling_contact_forms(self, contact):
         wd = self.app.wd
-        self.change_field_value("firstname",contact.firstname)
+        self.change_field_value("firstname", contact.firstname)
         self.change_field_value("middlename", contact.middlename)
         self.change_field_value("lastname", contact.lastname)
         self.change_field_value("nickname", contact.nickname)
@@ -85,3 +87,15 @@ class ContactHelper:
         wd = self.app.wd
         self.app.navigation.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_contact_list(self):
+        wd = self.app.wd
+        self.app.navigation.open_home_page()
+        contacts = []
+        for element in wd.find_elements_by_name("entry"):
+            text_in_td = element.find_elements_by_xpath(".//td")
+            id = text_in_td[0].find_element_by_name("selected[]").get_attribute("value")
+            last_name = text_in_td[1].text
+            first_name = text_in_td[2].text
+            contacts.append(Contact(firstname=first_name, lastname=last_name, id=id))
+        return contacts
