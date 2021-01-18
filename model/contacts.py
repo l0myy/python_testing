@@ -1,4 +1,5 @@
 from sys import maxsize
+import re
 
 
 class Contact:
@@ -45,3 +46,6 @@ class Contact:
             return int(self.id)
         else:
             return maxsize
+
+    def clear(s):
+        return re.sub("[() -]", "", s)
