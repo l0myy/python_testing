@@ -104,9 +104,12 @@ class ContactHelper:
                 id = text_in_td[0].find_element_by_name("selected[]").get_attribute("value")
                 last_name = text_in_td[1].text
                 first_name = text_in_td[2].text
+                address = text_in_td[3].text
+                emails = text_in_td[4].text
                 all_phones = text_in_td[5].text
                 self.contact_cache.append(Contact(firstname=first_name, lastname=last_name, id=id,
-                                                  all_phones_from_home_page=all_phones))
+                                                  all_phones_from_home_page=all_phones, all_emails=emails,
+                                                  address=address))
         return list(self.contact_cache)
 
     def open_contact_view_by_index(self, index):
@@ -133,17 +136,32 @@ class ContactHelper:
         workphone = wd.find_element_by_name("work").get_attribute("value")
         mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
         secondaryphone = wd.find_element_by_name("phone2").get_attribute("value")
+        email = wd.find_element_by_name("email").get_attribute("value")
+        email2 = wd.find_element_by_name("email2").get_attribute("value")
+        email3 = wd.find_element_by_name("email3").get_attribute("value")
+        address = wd.find_element_by_name("address").get_attribute("value")
         return Contact(firstname=firstname, lastname=lastname, id=id, home=homephone, work=workphone,
-                       mobile=mobilephone, phone2=secondaryphone)
+                       mobile=mobilephone, phone2=secondaryphone, email=email, email2=email2, email3=email3,
+                       address=address)
 
     def get_contact_from_view_page(self, index):
         wd = self.app.wd
         self.open_contact_view_by_index(index)
         text = wd.find_element_by_id("content").text
+        fio = re.search("(.*)\n", text).group(1).split()
+        firstname = fio[0]
+        lastname = fio[2]
         homephone = re.search("H: (.*)", text).group(1)
         workphone = re.search("W: (.*)", text).group(1)
         mobilephone = re.search("M: (.*)", text).group(1)
         secondaryphone = re.search("P: (.*)", text).group(1)
-        return Contact(home=homephone, work=workphone, mobile=mobilephone, phone2=secondaryphone)
+        address = text.split("\n")[4]
+        emails = []
+        for element in wd.find_element_by_id("content").find_elements_by_css_selector("a"):
+            if re.search("(.*)@(.*).*", element.text) is not None:
+                emails.append(element.text)
+        return Contact(home=homephone, work=workphone, mobile=mobilephone, phone2=secondaryphone,
+                       email=emails[0], email2=emails[1], email3=emails[2], firstname=firstname, lastname=lastname,
+                       address=address)
 
 

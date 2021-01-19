@@ -6,7 +6,8 @@ class Contact:
     def __init__(self, firstname=None, middlename=None, lastname=None, nickname=None, title=None, company=None,
                  address=None, home=None, mobile=None, work=None, fax=None, email=None, email2=None, email3=None,
                  homepage=None, bday=None, bmonth=None, byear=None, aday=None, amonth=None, ayear=None, group_name=None,
-                 address2=None, phone2=None, notes=None, id=None, all_phones_from_home_page= None):
+                 address2=None, phone2=None, notes=None, id=None, all_phones_from_home_page= None, all_emails=None
+                 ):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
@@ -34,6 +35,7 @@ class Contact:
         self.notes = notes
         self.id = id
         self.all_phones_from_home_page = all_phones_from_home_page
+        self.all_emails = all_emails
 
     def __repr__(self):
         return "%s:%s:%s" % (self.id, self.lastname, self.firstname)
@@ -50,3 +52,15 @@ class Contact:
 
     def clear(s):
         return re.sub("[() -]", "", s)
+
+    def merge_phones_like_on_home_page(contact):
+        return "\n".join(filter(lambda x: x != "",
+                                map(lambda x: Contact.clear(x),
+                                    filter(lambda x: x is not None,
+                                           [contact.home, contact.mobile, contact.work, contact.phone2]))))
+
+    def merge_emails_like_on_home_page(contact):
+        return "\n".join(filter(lambda x: x != "",
+                                map(lambda x: Contact.clear(x),
+                                    filter(lambda x: x is not None,
+                                           [contact.email, contact.email2, contact.email3]))))
