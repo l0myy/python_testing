@@ -7,7 +7,7 @@ class NavigationHelper:
     def open_home_page(self):
         wd = self.app.wd
         if not (wd.current_url.endswith("/") and len(wd.find_elements_by_name("Select all")) > 0):
-            wd.get("http://localhost/addressbook/")
+            wd.get(self.app.base_url)
 
 
 
