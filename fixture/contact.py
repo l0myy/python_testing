@@ -25,6 +25,7 @@ class ContactHelper:
             Select(wd.find_element_by_name("new_group")).select_by_visible_text(contact.group_name)
         # submit contact creation
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
+        wd.find_elements_by_css_selector("div.msgbox")
         self.app.navigation.open_home_page()
         self.contact_cache = None
 

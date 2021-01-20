@@ -26,36 +26,22 @@ def random_month():
     return random.choice(symbols)
 
 
-test_data = [Contact(firstname=firstname, middlename=middlename, lastname=lastname, nickname=nickname, title=title,
-                     company=company, address=address, home=home, mobile=mobile, work=work, fax=fax, email=email,
-                     email2=email2, email3=email3, homepage=homepage, bday=bday, bmonth=bmonth, byear=byear, aday=aday,
-                     amonth=amonth, ayear=ayear, group_name=group_name, address2=address2, phone2=phone2, notes=notes)
-        for firstname in [random_string("firstname", 10)]
-        for middlename in [random_string("middlename", 10)]
-        for lastname in [random_string("lastname", 10)]
-        for nickname in [random_string("nickname", 10)]
-        for title in [random_string("title", 10)]
-        for company in [random_string("company", 10)]
-        for address in [random_string("address", 10)]
-        for home in [random_phone(10)]
-        for mobile in [random_phone(10)]
-        for work in [random_phone(10)]
-        for fax in [random_phone(10)]
-        for email in [random_email(10)]
-        for email2 in [random_email(10)]
-        for email3 in [random_email(10)]
-        for homepage in [random_string("homepage", 10)]
-        for bday in [str(random.randrange(31))]
-        for bmonth in [random_month()]
-        for byear in [str(random.randrange(2020))]
-        for aday in [str(random.randrange(31))]
-        for amonth in [random_month()]
-        for ayear in [str(random.randrange(2020))]
-        for group_name in [random_string("name", 10)]
-        for address2 in [random_string("address2", 10)]
-        for phone2 in [random_phone(10)]
-        for notes in [random_string("notes", 10)]
-        ]
+test_data = [Contact(firstname=random_string("firstname", 10), middlename=random_string("middlename", 10),
+                     lastname=random_string("lastname", 10), nickname=random_string("nickname", 10),
+                     title=random_string("title", 10),company=random_string("company", 10),
+                     address=random_string("address", 10), home=random_phone(10),mobile=random_phone(10),
+                     work=random_phone(10), fax=random_phone(10), email=random_email(10),email2=random_email(10),
+                     email3=random_email(10), homepage=random_string("homepage", 10),bday=str(random.randrange(1, 31)),
+                     bmonth=random_month(), byear=str(random.randrange(2020)), aday=str(random.randrange(1, 31)),
+                     amonth=random_month(), ayear=str(random.randrange(2020)), group_name=random_string("name", 10),
+                     address2=random_string("address2", 10), phone2=random_phone(10), notes=random_string("notes", 10))
+             for i in range(5)]+\
+            [Contact(firstname="my_name", middlename="my_middle_name", lastname="my last name", nickname="nickname",
+                       title="", company="", address="", home="457457", mobile="3567537", work="2457247", fax="245724742",
+                       email=random_email(12), email2=random_email(12), email3=random_email(12), homepage="", bday="22",
+                       bmonth=random_month(), byear="1363", aday="3", amonth=random_month(), ayear="2000", group_name="",
+                       address2="", phone2="31414", notes="")
+                      ]
 
 
 @pytest.mark.parametrize("contact", test_data, ids=[repr(x) for x in test_data])
