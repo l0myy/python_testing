@@ -119,22 +119,23 @@ class ContactHelper:
         self.app.navigation.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
-    def get_contact_list(self):
+    def get_contact_list(self, id=None):
         if self.contact_cache is None:
             wd = self.app.wd
             self.app.navigation.open_home_page()
             self.contact_cache = []
             for element in wd.find_elements_by_name("entry"):
                 text_in_td = element.find_elements_by_xpath(".//td")
-                id = text_in_td[0].find_element_by_name("selected[]").get_attribute("value")
-                last_name = text_in_td[1].text
-                first_name = text_in_td[2].text
-                address = text_in_td[3].text
-                emails = text_in_td[4].text
-                all_phones = text_in_td[5].text
-                self.contact_cache.append(Contact(firstname=first_name, lastname=last_name, id=id,
-                                                  all_phones_from_home_page=all_phones, all_emails=emails,
-                                                  address=address))
+                my_id = text_in_td[0].find_element_by_name("selected[]").get_attribute("value")
+                if id is None or id == my_id:
+                    last_name = text_in_td[1].text
+                    first_name = text_in_td[2].text
+                    address = text_in_td[3].text
+                    emails = text_in_td[4].text
+                    all_phones = text_in_td[5].text
+                    self.contact_cache.append(Contact(firstname=first_name, lastname=last_name, id=my_id,
+                                                      all_phones=all_phones, all_emails=emails,
+                                                      address=address))
         return list(self.contact_cache)
 
     def open_contact_view_by_index(self, index):

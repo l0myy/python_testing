@@ -9,7 +9,7 @@ class DbFixture():
         self.name = name
         self.user = user
         self.password = password
-        self.connection = pymysql.connect(host = host, database=name, user=user, password=password, autocommit=True)
+        self.connection = pymysql.connect(host=host, database=name, user=user, password=password, autocommit=True)
 
     def destroy(self):
         self.connection.close()
@@ -27,14 +27,19 @@ class DbFixture():
         return list
 
     def get_contact_list(self):
-        list = []
+        contact_list = []
         cursor = self.connection.cursor()
         try:
-            cursor.execute("select id, firstname, lastname from addressbook where deprecated = '0000-00-00 00:00:00'")
+            cursor.execute(
+                "select id, firstname, lastname, address, home, mobile, work, email, email2, email3,"
+                "phone2 from addressbook")
             for row in cursor:
-                (id, firstname, lastname) = row
-                list.append(Contact(id=str(id), firstname=firstname, lastname=lastname))
+                (id, firstname, lastname, address, home, mobile, work, email, email2, email3, phone2) = row
+                contact_list.append(
+                    Contact(firstname=firstname, lastname=lastname, address=address,
+                            home=home, mobile=mobile, work=work, email=email, email2=email2,
+                            email3=email3, phone2=phone2, id=str(id)))
         finally:
             cursor.close()
-        return list
+        return contact_list
 
