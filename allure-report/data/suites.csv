@@ -1,0 +1,7 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Tue Feb 09 00:02:15 MSK 2021","Tue Feb 09 00:02:16 MSK 2021","929","test","test_add_group","","","","test_add_group[None:name4F:headero:footerfcb]",""
+"passed","Tue Feb 09 00:02:12 MSK 2021","Tue Feb 09 00:02:13 MSK 2021","952","test","test_add_group","","","","test_add_group[None:namev7/3sG&3:header zZa:footerM]",""
+"passed","Tue Feb 09 00:02:16 MSK 2021","Tue Feb 09 00:02:17 MSK 2021","945","test","test_add_group","","","","test_add_group[None:nameH LZ!4 vK:header3l:footerwy}<]",""
+"passed","Tue Feb 09 00:02:14 MSK 2021","Tue Feb 09 00:02:15 MSK 2021","950","test","test_add_group","","","","test_add_group[None:name5e6:header2:footer.D*)]",""
+"passed","Tue Feb 09 00:02:13 MSK 2021","Tue Feb 09 00:02:14 MSK 2021","976","test","test_add_group","","","","test_add_group[None:namex@ -:headerj:footer`7D)6yA]",""
+"passed","Tue Feb 09 00:02:11 MSK 2021","Tue Feb 09 00:02:12 MSK 2021","1157","test","test_add_group","test_add_group[None","","","test_add_group[None:::]",""
